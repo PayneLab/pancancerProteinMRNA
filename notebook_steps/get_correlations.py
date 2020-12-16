@@ -11,13 +11,15 @@ def correlation_list(tissue, gene_list, valid_sample_number = 30, tissue_type = 
     #Returns a list of lists containing the name of the gene and the correlation
     corr_list = []
     pval_list = []
+    num_samples_list = []
+    num_samples = 0
     prot = tissue.get_proteomics(tissue_type)
     if isinstance(prot.columns, pd.MultiIndex):
-        prot = ut.reduce_multiindex(df = prot, levels_to_drop="Database_ID")
+        prot = ut.reduce_multiindex(df = prot, levels_to_drop="Database_ID",quiet=True)
     
     trans = tissue.get_transcriptomics(tissue_type)
     if isinstance(trans.columns, pd.MultiIndex):
-        trans = ut.reduce_multiindex(df = trans, levels_to_drop="Database_ID")
+        trans = ut.reduce_multiindex(df = trans, levels_to_drop="Database_ID",quiet=True)
         
     prot_index_values = list(prot.index.values)
     trans_index_values = list(trans.index.values)
@@ -62,12 +64,15 @@ def correlation_list(tissue, gene_list, valid_sample_number = 30, tissue_type = 
         prot_measurements = prot_measurements.drop(nan_indices)
         trans_measurements = trans_measurements.drop(nan_indices)
         
+        num_samples = len(trans_measurements)
+        num_samples_list.append(num_samples)
+        
         correlation,pval = scipy.stats.pearsonr(prot_measurements, trans_measurements)
         if math.isnan(correlation):
             continue
         corr_list.append([gene,correlation])
         pval_list.append([gene, pval])
-    return corr_list, pval_list
+    return (corr_list, pval_list, num_samples_list)
 def ret_list(li):
     #Returns a list of correlations from all genes
     ret_li = []
