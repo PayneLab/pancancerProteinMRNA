@@ -1,6 +1,6 @@
 import pandas as pd
 import load_data
-def get_data(cancer_type="all", tissue_type="all", genes = "all", get_corr=True, get_r2=True, get_p=True):
+def get_data(cancer_type="all", tissue_type="all", genes = "all", get_corr=True, get_r2=False, get_p=False):
     df = load_data.load_correlation_df()
     #df = df.rename(columns = {'Unnamed: 0': "Cancer Type"})
     if cancer_type != "all":
