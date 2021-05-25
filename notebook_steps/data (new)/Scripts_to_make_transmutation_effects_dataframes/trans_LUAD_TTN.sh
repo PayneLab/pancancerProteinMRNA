@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --time=168:00:00   # walltime
 #SBATCH --ntasks=2   # number of processor cores (i.e. tasks)
-#SBATCH --mem-per-cpu=1536M   # memory per CPU core
+#SBATCH --mem-per-cpu=8192M   # memory per CPU core
 #SBATCH --mail-user=nanelbarton@gmail.com   # email address
 #SBATCH --mail-type=BEGIN
 #SBATCH --mail-type=END
