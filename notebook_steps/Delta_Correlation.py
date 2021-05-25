@@ -39,7 +39,7 @@ def permutate(df, column = 'Tissue', label1 = 'tumor', label2 ='normal', cutoff 
     delta_corr = delta_correlation(df, column = column, label1 = label1, label2 = label2)
     perm_delta_corrs = []
     for i in range(0, num_permutations):
-        df.Tissue = np.random.permutation(df.Tissue)
+        df[column] = np.random.permutation(df[column])
         perm_delta_corr = delta_correlation(df, column = column, label1 = label1, label2 = label2)
         perm_delta_corrs.append(perm_delta_corr)
     z_score = (delta_corr - np.mean(perm_delta_corrs)) / np.std(perm_delta_corrs)
