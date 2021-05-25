@@ -1,11 +1,16 @@
-import Delta_Correlation as dc
 import cptac
 import statsmodels.stats.multitest as ssm
 import pandas as pd
 import warnings
-import sys
+import sys, os
+
 
 warnings.filterwarnings('ignore')
+currentdir = os.path.dirname(os.path.realpath('Make_Cancer_Delta_Corr_and_P_Value_Dataframe'))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+import Delta_Correlation as dc
+
 
 input_cancer_type = sys.argv[1]
 input_permutation_number = int(sys.argv[2])
