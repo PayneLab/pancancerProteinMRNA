@@ -7,4 +7,4 @@
 #SBATCH --mail-type=END
 # Set the max number of threads to use for programs using OpenMP. Should be <= ppn. Does nothing if the program doesn't use OpenMP.
 export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
-transmutation_effects.py Endometrial KMT2B 10000
+python transmutation_effects.py Endometrial KMT2B 10000
