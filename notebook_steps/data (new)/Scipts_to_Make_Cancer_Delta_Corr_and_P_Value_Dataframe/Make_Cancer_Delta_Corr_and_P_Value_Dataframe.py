@@ -8,6 +8,8 @@ import sys, os
 warnings.filterwarnings('ignore')
 currentdir = os.path.dirname(os.path.realpath('Make_Cancer_Delta_Corr_and_P_Value_Dataframe'))
 parentdir = os.path.dirname(currentdir)
+parentdir = os.path.dirname(parentdir)
+print(parentdir)
 sys.path.append(parentdir)
 import Delta_Correlation as dc
 
