@@ -4,6 +4,9 @@ import numpy as np
 import pandas as pd
 import copy
 import cptac.utils as ut
+from rpy2.robjects import r, pandas2ri
+from rpy2.robjects.packages import importr
+import rpy2.robjects as robj
 
 # 
 def get_prot_trans_df(cancer):
@@ -54,3 +57,45 @@ def delta_correlation(df, column = 'Tissue', label1 = 'tumor', label2 ='normal',
     tumor_corr = df[df[column] == label1].corr(method = 'pearson',min_periods = cutoff).iloc[0][1]
     delta_corr = tumor_corr - normal_corr
     return delta_corr
+
+def linear_model(data, Input, Output, Condition):
+    try:
+        stats = importr('stats')
+        base = importr('base')
+        pandas2ri.activate()
+        r_df = pandas2ri.py2rpy(data)
+        pandas2ri.deactivate()
+        formula = '{y}~{x}*{condition}'.format(y = Output, x = Input, condition = Condition)
+        lm = stats.lm(formula, r_df)
+        summary = (base.summary(lm))
+        results = summary.rx2('coefficients')
+        results_df = base.as_data_frame_matrix(results)
+        py_results_df = pd.DataFrame(results_df).transpose()
+        py_results_df.columns = results_df.colnames
+        py_results_df.index = results_df.rownames
+        return(py_results_df)
+    except:
+        return(pd.DataFrame({}))
+
+def regression(df):
+    lm_df= linear_model(df, 'Transcriptomics', 'Proteomics', 'Tissue')
+    d = dict()
+    d['interaction_coeff'] = float('NaN')
+    d['condition_coeff'] = float('NaN')
+    d['transcript_coeff'] = float('NaN')
+    d['intercept'] = float('NaN')
+    d['interaction_pval'] = float('NaN')
+    d['condition_pval'] = float('NaN')
+    d['transcript_pval'] = float('NaN')
+    d['intercept_pval'] = float('NaN')
+    if len(lm_df) == 4:
+        d['interaction_coeff'] = lm_df['Estimate'][3]
+        d['condition_coeff'] = lm_df['Estimate'][2]
+        d['transcript_coeff'] = lm_df['Estimate'][1]
+        d['intercept'] = lm_df['Estimate'][0]
+        d['interaction_pval'] = lm_df['Pr(>|t|)'][3]
+        d['condition_pval'] = lm_df['Pr(>|t|)'][2]
+        d['transcript_pval'] = lm_df['Pr(>|t|)'][1]
+        d['intercept_pval'] = lm_df['Pr(>|t|)'][0]
+    return d
+        
