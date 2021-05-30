@@ -5,7 +5,7 @@ import os, sys
 currentdir = os.path.dirname(os.path.realpath('make_regression_df.py'))
 parentdir = os.path.dirname(currentdir)
 print(parentdir)
-parentdir = os.path.dirname(currentdir)
+parentdir = os.path.dirname(parentdir)
 print(parentdir)
 sys.path.append(parentdir)
 import Delta_Correlation as dc
