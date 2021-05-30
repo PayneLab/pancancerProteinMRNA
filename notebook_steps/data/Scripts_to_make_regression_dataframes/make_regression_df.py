@@ -1,11 +1,8 @@
 import cptac 
 import pandas as pd
 import os, sys
-<<<<<<< HEAD
+
 currentdir = os.path.dirname(os.path.realpath('make_regression_df.py'))
-=======
-currentdir = os.path.dirname(os.path.realpath('make_regression_df'))
->>>>>>> bc8c362ac7604f56f4368e5cee8609f4e754eb42
 parentdir = os.path.dirname(currentdir)
 print(parentdir)
 parentdir = os.path.dirname(currentdir)
