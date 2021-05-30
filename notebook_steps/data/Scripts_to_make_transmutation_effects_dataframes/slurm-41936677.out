@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "transmutation_effects.py", line 1, in <module>
+    import cptac
+ImportError: No module named cptac
