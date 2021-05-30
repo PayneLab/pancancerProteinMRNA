@@ -1,7 +1,7 @@
 import cptac 
 import pandas as pd
 import os, sys
-currentdir = os.path.dirname(os.path.realpath('notebook_steps'))
+currentdir = os.path.dirname(os.path.realpath('make_regression_df.py'))
 parentdir = os.path.dirname(currentdir)
 currentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
