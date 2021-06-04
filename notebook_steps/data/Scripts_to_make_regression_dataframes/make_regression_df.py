@@ -5,7 +5,7 @@ import os, sys
 currentdir = os.path.dirname(os.path.realpath('make_regression_df.py'))
 parentdir = os.path.dirname(currentdir)
 parentdir = os.path.dirname(parentdir)
-sys.path.append(parentdir) RPY2_CFFI_MODE=ABI
+sys.path.append(parentdir) #RPY2_CFFI_MODE=ABI
 import Delta_Correlation as dc
 import statsmodels.stats.multitest as ssm
 from rpy2.robjects import r, pandas2ri
