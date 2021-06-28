@@ -6,15 +6,18 @@ import copy
 import cptac.utils as ut
 
 
-def load_cancers():
+def load_cancers(include_pdac = False):
     ccrcc = cptac.Ccrcc()
     en = cptac.Endometrial()
     luad = cptac.Luad()
     hnscc  = cptac.Hnscc()
     lscc = cptac.Lscc()
-    pdac = cptac.Pdac()
-    cancers = [ccrcc, en, luad, hnscc, lscc, pdac]
-    cancer_names = ['CCRCC', 'Endometrial', 'LUAD', 'HNSCC', 'LSCC', 'PDAC']
+    cancers = [ccrcc, en, luad, hnscc, lscc]
+    cancer_names = ['CCRCC', 'Endometrial', 'LUAD', 'HNSCC', 'LSCC']
+    if include_pdac:
+        pdac = cptac.Pdac()
+        cancers.append(pdac)
+        cancer_names.append('PDAC')
     return cancers, cancer_names
 
 def get_prot_trans_df(cancer):
