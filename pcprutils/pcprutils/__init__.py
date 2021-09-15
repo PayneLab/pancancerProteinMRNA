@@ -67,6 +67,3 @@ def delta_correlation(df, column = 'Tissue', label1 = 'Tumor', label2 ='Normal',
     tumor_corr = df[df[column] == label1].corr(method = 'spearman',min_periods = cutoff).iloc[0][1]
     delta_corr = tumor_corr - normal_corr
     return delta_corr
-
-
-        
