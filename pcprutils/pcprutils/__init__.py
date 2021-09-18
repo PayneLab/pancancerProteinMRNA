@@ -21,32 +21,43 @@ def load_cancers(include_pdac = False):
     return cancers, cancer_names
 
 def get_prot_trans_df(cancer):
+
     prot_normal_df = cancer.get_proteomics('normal')
     if isinstance(prot_normal_df.columns, pd.MultiIndex):
         prot_normal_df = ut.reduce_multiindex(df= prot_normal_df, levels_to_drop = 'Database_ID')
+
     trans_normal_df = cancer.get_transcriptomics('normal')
     if isinstance(trans_normal_df.columns, pd.MultiIndex):
         trans_normal_df = ut.reduce_multiindex(df = trans_normal_df, levels_to_drop='Database_ID')
+
     prot_normal_df['Patient_ID'] = prot_normal_df.index
     trans_normal_df['Patient_ID'] = trans_normal_df.index
+
     prot_normal_df = prot_normal_df.melt(id_vars = 'Patient_ID', var_name = 'Gene', value_name = 'Proteomics')
     trans_normal_df = trans_normal_df.melt(id_vars = 'Patient_ID', var_name = 'Gene', value_name = 'Transcriptomics')
+
     prot_tumor_df = cancer.get_proteomics('tumor')
     if isinstance(prot_tumor_df.columns, pd.MultiIndex):
         prot_tumor_df = ut.reduce_multiindex(df= prot_tumor_df, levels_to_drop = 'Database_ID')
+
     trans_tumor_df = cancer.get_transcriptomics('tumor')
     if isinstance(trans_tumor_df.columns, pd.MultiIndex):
         trans_tumor_df = ut.reduce_multiindex(df = trans_tumor_df, levels_to_drop='Database_ID')
+
     prot_tumor_df['Patient_ID'] = prot_tumor_df.index
     trans_tumor_df['Patient_ID'] = trans_tumor_df.index
+
     prot_tumor_df = prot_tumor_df.melt(id_vars = 'Patient_ID', var_name = 'Gene', value_name = 'Proteomics')
     trans_tumor_df = trans_tumor_df.melt(id_vars = 'Patient_ID', var_name = 'Gene', value_name = 'Transcriptomics')
+
     prot_tumor_df['Tissue'] = ['Tumor'] * len(prot_tumor_df)
     prot_normal_df['Tissue'] = ['Normal'] * len(prot_normal_df)
     trans_tumor_df['Tissue'] = ['Tumor'] * len(trans_tumor_df)
     trans_normal_df['Tissue'] = ['Normal'] * len(trans_normal_df)
+
     prot_df = pd.concat([prot_tumor_df, prot_normal_df])
     trans_df = pd.concat([trans_tumor_df, trans_normal_df])
+
     return(pd.merge(prot_df, trans_df).dropna())
 
 def permutate(df, column = 'Tissue', label1 = 'Tumor', label2 ='Normal', cutoff = 15, num_permutations = 10000, return_perm_list = False):
