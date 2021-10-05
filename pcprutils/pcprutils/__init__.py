@@ -24,11 +24,11 @@ def get_prot_trans_df(cancer):
 
     prot_normal_df = cancer.get_proteomics('normal')
     if isinstance(prot_normal_df.columns, pd.MultiIndex):
-        prot_normal_df = ut.reduce_multiindex(df= prot_normal_df, levels_to_drop = 'Database_ID')
+        prot_normal_df = ut.reduce_multiindex(df= prot_normal_df, levels_to_drop = 'Database_ID', quiet=True)
 
     trans_normal_df = cancer.get_transcriptomics('normal')
     if isinstance(trans_normal_df.columns, pd.MultiIndex):
-        trans_normal_df = ut.reduce_multiindex(df = trans_normal_df, levels_to_drop='Database_ID')
+        trans_normal_df = ut.reduce_multiindex(df = trans_normal_df, levels_to_drop='Database_ID', quiet=True)
 
     prot_normal_df['Patient_ID'] = prot_normal_df.index
     trans_normal_df['Patient_ID'] = trans_normal_df.index
@@ -38,11 +38,11 @@ def get_prot_trans_df(cancer):
 
     prot_tumor_df = cancer.get_proteomics('tumor')
     if isinstance(prot_tumor_df.columns, pd.MultiIndex):
-        prot_tumor_df = ut.reduce_multiindex(df= prot_tumor_df, levels_to_drop = 'Database_ID')
+        prot_tumor_df = ut.reduce_multiindex(df= prot_tumor_df, levels_to_drop = 'Database_ID', quiet=True)
 
     trans_tumor_df = cancer.get_transcriptomics('tumor')
     if isinstance(trans_tumor_df.columns, pd.MultiIndex):
-        trans_tumor_df = ut.reduce_multiindex(df = trans_tumor_df, levels_to_drop='Database_ID')
+        trans_tumor_df = ut.reduce_multiindex(df = trans_tumor_df, levels_to_drop='Database_ID', quiet=True)
 
     prot_tumor_df['Patient_ID'] = prot_tumor_df.index
     trans_tumor_df['Patient_ID'] = trans_tumor_df.index
