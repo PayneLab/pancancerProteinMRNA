@@ -61,34 +61,28 @@ def permutate(df, column = 'Tissue', label1 = 'Tumor', label2 ='Normal', cutoff 
     p_val = stats.norm.sf(abs(z_score)) * 2  
     return(delta_corr, p_val)
 
+def delta_correlation(df, column = 'Tissue', label1 = 'Tumor', label2 ='Normal', cutoff = 15):
+    normal_corr = df[df[column] == label2].corr(method = 'spearman',min_periods = cutoff ).iloc[0][1]
+    tumor_corr = df[df[column] == label1].corr(method = 'spearman',min_periods = cutoff).iloc[0][1]
+    delta_corr = tumor_corr - normal_corr
+    return delta_corr
 
 warnings.filterwarnings('ignore')
-currentdir = os.path.dirname(os.path.realpath('Make_Cancer_Delta_Corr_and_P_Value_Dataframe'))
-parentdir = os.path.dirname(currentdir)
-parentdir = os.path.dirname(parentdir)
-sys.path.append(parentdir)
-
-
 input_cancer_type = sys.argv[1]
 input_permutation_number = int(sys.argv[2])
 token = sys.argv[3]
 cutoff = 15
 
 if input_cancer_type == "CCRCC":
-    pc.download("pancanccrcc", box_token=token)
     cancer = pc.PancanCcrcc()
 elif input_cancer_type == "Endometrial":
-    pc.download("pancanucec", box_token=token)
     cancer = pc.PancanUcec()
     cutoff = 10
 elif input_cancer_type == "LUAD":
-    pc.download("pancanluad", box_token=token)
     cancer = pc.PancanLuad()
 elif input_cancer_type == "HNSCC":
-    pc.download("pancanhnscc", box_token=token)
     cancer = pc.PancanHnscc()
 elif input_cancer_type == "LSCC":
-    pc.download("pancanlscc", box_token=token)
     cancer = pc.PancanLscc()
 
 
