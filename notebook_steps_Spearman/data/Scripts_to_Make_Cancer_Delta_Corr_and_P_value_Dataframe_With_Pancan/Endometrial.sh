@@ -14,4 +14,4 @@
 # Set the max number of threads to use for programs using OpenMP. Should be <= ppn. Does nothing if the program doesn't use OpenMP.
 export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
 
-python3 Make_Cancer_Delta_Corr_and_P_Value_Dataframe_Pancan.py Endometrial 10000
+python3.8 Make_Cancer_Delta_Corr_and_P_Value_Dataframe_Pancan.py Endometrial 10000

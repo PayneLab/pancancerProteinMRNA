@@ -10,11 +10,11 @@ import sys, os
 
 def get_prot_trans_df(cancer):
 
-    prot_normal_df = cancer.get_proteomics("pdc", 'normal')
+    prot_normal_df = cancer.get_proteomics('umich', 'normal')
     if isinstance(prot_normal_df.columns, pd.MultiIndex):
         prot_normal_df = ut.reduce_multiindex(df= prot_normal_df, levels_to_drop = 'Database_ID', quiet=True)
 
-    trans_normal_df = cancer.get_transcriptomics("washu", 'normal')
+    trans_normal_df = cancer.get_transcriptomics('washu', 'normal')
     if isinstance(trans_normal_df.columns, pd.MultiIndex):
         trans_normal_df = ut.reduce_multiindex(df = trans_normal_df, levels_to_drop='Database_ID', quiet=True)
 
@@ -24,11 +24,11 @@ def get_prot_trans_df(cancer):
     prot_normal_df = prot_normal_df.melt(id_vars = 'Name', var_name = 'Gene', value_name = 'Proteomics')
     trans_normal_df = trans_normal_df.melt(id_vars = 'Name', var_name = 'Gene', value_name = 'Transcriptomics')
 
-    prot_tumor_df = cancer.get_proteomics("pdc", 'tumor')
+    prot_tumor_df = cancer.get_proteomics('umich', 'tumor')
     if isinstance(prot_tumor_df.columns, pd.MultiIndex):
         prot_tumor_df = ut.reduce_multiindex(df= prot_tumor_df, levels_to_drop = 'Database_ID', quiet=True)
 
-    trans_tumor_df = cancer.get_transcriptomics("washu", 'tumor')
+    trans_tumor_df = cancer.get_transcriptomics('washu', 'tumor')
     if isinstance(trans_tumor_df.columns, pd.MultiIndex):
         trans_tumor_df = ut.reduce_multiindex(df = trans_tumor_df, levels_to_drop='Database_ID', quiet=True)
 
@@ -68,22 +68,28 @@ def delta_correlation(df, column = 'Tissue', label1 = 'Tumor', label2 ='Normal',
     return delta_corr
 
 warnings.filterwarnings('ignore')
+currentdir = os.path.dirname(os.path.realpath('Make_Cancer_Delta_Corr_and_P_value_Dataframe_With_Pancan'))
+parentdir = os.path.dirname(currentdir)
+parentdir = os.path.dirname(parentdir)
+sys.path.append(parentdir)
+
+
 input_cancer_type = sys.argv[1]
 input_permutation_number = int(sys.argv[2])
-token = sys.argv[3]
 cutoff = 15
 
 if input_cancer_type == "CCRCC":
-    cancer = pc.PancanCcrcc()
+    cancer = pc.PancanCcrcc(no_internet = True)
 elif input_cancer_type == "Endometrial":
-    cancer = pc.PancanUcec()
+    cancer = pc.PancanUcec(no_internet = True)
     cutoff = 10
 elif input_cancer_type == "LUAD":
-    cancer = pc.PancanLuad()
+    cancer = pc.PancanLuad(no_internet = True)
 elif input_cancer_type == "HNSCC":
-    cancer = pc.PancanHnscc()
-elif input_cancer_type == "LSCC":
-    cancer = pc.PancanLscc()
+    cancer = pc.PancanHnscc(no_internet = True)
+else:
+#this is LSCC
+    cancer = pc.PancanLscc(no_internet = True)
 
 
 prot_trans_df = get_prot_trans_df(cancer)
