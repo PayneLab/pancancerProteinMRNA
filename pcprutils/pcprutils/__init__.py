@@ -4,51 +4,48 @@ import numpy as np
 import pandas as pd
 import copy
 import cptac.utils as ut
+import cptac.pancan as pc
 
 
-def load_cancers(include_pdac = False):
-    ccrcc = cptac.Ccrcc()
-    en = cptac.Endometrial()
-    luad = cptac.Luad()
-    hnscc  = cptac.Hnscc()
-    lscc = cptac.Lscc()
+def load_cancers():
+    ccrcc = pc.PancanCcrcc()
+    en = pc.PancanUcec()
+    luad = pc.PancanLuad()
+    hnscc  = pc.PancanHnscc()
+    lscc = pc.PancanLscc()
     cancers = [ccrcc, en, luad, hnscc, lscc]
     cancer_names = ['CCRCC', 'Endometrial', 'LUAD', 'HNSCC', 'LSCC']
-    if include_pdac:
-        pdac = cptac.Pdac()
-        cancers.append(pdac)
-        cancer_names.append('PDAC')
     return cancers, cancer_names
 
 def get_prot_trans_df(cancer):
 
-    prot_normal_df = cancer.get_proteomics('normal')
+    prot_normal_df = cancer.get_proteomics('umich', 'normal')
     if isinstance(prot_normal_df.columns, pd.MultiIndex):
         prot_normal_df = ut.reduce_multiindex(df= prot_normal_df, levels_to_drop = 'Database_ID', quiet=True)
 
-    trans_normal_df = cancer.get_transcriptomics('normal')
+    trans_normal_df = cancer.get_transcriptomics('washu', 'normal')
     if isinstance(trans_normal_df.columns, pd.MultiIndex):
         trans_normal_df = ut.reduce_multiindex(df = trans_normal_df, levels_to_drop='Database_ID', quiet=True)
 
-    prot_normal_df['Patient_ID'] = prot_normal_df.index
-    trans_normal_df['Patient_ID'] = trans_normal_df.index
+    prot_normal_df['Name'] = prot_normal_df.index
+    trans_normal_df['Name'] = trans_normal_df.index
 
-    prot_normal_df = prot_normal_df.melt(id_vars = 'Patient_ID', var_name = 'Gene', value_name = 'Proteomics')
-    trans_normal_df = trans_normal_df.melt(id_vars = 'Patient_ID', var_name = 'Gene', value_name = 'Transcriptomics')
+    prot_normal_df = prot_normal_df.melt(id_vars = 'Name', var_name = 'Gene', value_name = 'Proteomics')
+    trans_normal_df = trans_normal_df.melt(id_vars = 'Name', var_name = 'Gene', value_name = 'Transcriptomics')
 
-    prot_tumor_df = cancer.get_proteomics('tumor')
+    prot_tumor_df = cancer.get_proteomics('umich', 'tumor')
     if isinstance(prot_tumor_df.columns, pd.MultiIndex):
         prot_tumor_df = ut.reduce_multiindex(df= prot_tumor_df, levels_to_drop = 'Database_ID', quiet=True)
 
-    trans_tumor_df = cancer.get_transcriptomics('tumor')
+    trans_tumor_df = cancer.get_transcriptomics('washu', 'tumor')
     if isinstance(trans_tumor_df.columns, pd.MultiIndex):
         trans_tumor_df = ut.reduce_multiindex(df = trans_tumor_df, levels_to_drop='Database_ID', quiet=True)
 
-    prot_tumor_df['Patient_ID'] = prot_tumor_df.index
-    trans_tumor_df['Patient_ID'] = trans_tumor_df.index
+    prot_tumor_df['Name'] = prot_tumor_df.index
+    trans_tumor_df['Name'] = trans_tumor_df.index
 
-    prot_tumor_df = prot_tumor_df.melt(id_vars = 'Patient_ID', var_name = 'Gene', value_name = 'Proteomics')
-    trans_tumor_df = trans_tumor_df.melt(id_vars = 'Patient_ID', var_name = 'Gene', value_name = 'Transcriptomics')
+    prot_tumor_df = prot_tumor_df.melt(id_vars = 'Name', var_name = 'Gene', value_name = 'Proteomics')
+    trans_tumor_df = trans_tumor_df.melt(id_vars = 'Name', var_name = 'Gene', value_name = 'Transcriptomics')
 
     prot_tumor_df['Tissue'] = ['Tumor'] * len(prot_tumor_df)
     prot_normal_df['Tissue'] = ['Normal'] * len(prot_normal_df)
