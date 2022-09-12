@@ -39,7 +39,7 @@ mutation_df = mutation_df[mutation_df.Mutation != 'RNA']
 mutation_df = mutation_df[mutation_df.Mutation != 'synonymous SNV']
 mutation_df.reset_index(inplace = True)
 prot_trans_df = dc.get_prot_trans_df(cancer)
-prot_trans_df = prot_trans_df[prot_trans_df.Tissue == 'tumor']
+prot_trans_df = prot_trans_df[prot_trans_df.Tissue == 'Tumor']
 prot_trans_df['Mutation'] = prot_trans_df.Patient_ID.isin(mutation_df.Patient_ID)
 prot_trans_df = prot_trans_df.drop(columns = 'Tissue')
 perm_results = prot_trans_df.groupby('Gene').apply(lambda x: dc.permutate(df = x, cutoff = cutoff, num_permutations = input_permutation_number, column = 'Mutation', label1 = True, label2 = False))
