@@ -1,0 +1,7 @@
+cptac==1.1.2
+seaborn
+numpy
+pandas
+statsmodels
+scipy
+pyzt
