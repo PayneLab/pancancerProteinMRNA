@@ -35,5 +35,7 @@ Use the command in the cancer bash files. Again, note that the it may take some 
 All figures are produced by the scripts found [here](./notebook_step/Figures). <br>
 All the scripts that produce the images can be found [here](./notebook_steps). <br>
 
+## pcprutils
+Collection of useful functions to load cancers, fetch proteomic and transcriptomic data, and calculate correlations and permutation scores.<br>
 
 
