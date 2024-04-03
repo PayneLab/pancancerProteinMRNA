@@ -8,10 +8,10 @@ Transcriptomic data was obained from "washu" database.<br>
 ## Table of Contents
 
 - [Δ_corr](#Δ_corr)
-- [Transmutation Effects](#Transmutation Effects)
-- [Proteomic and Transcriptomic Tables](#Proteomic and Transcriptomic Differential Expression)
-- [Cancer Stages and Correlations](#Cancer Stages and Correlations)
-- [Set Enrichment](#Set Enrichment)
+- [Transmutation Effects](#Transmutation-Effects)
+- [Proteomic and Transcriptomic Tables](#Proteomic-and-Transcriptomic-Differential-Expression)
+- [Cancer Stages and Correlations](#Cancer-Stages-and-Correlations)
+- [Set Enrichment](#Set-Enrichment)
 
 ## Δ_corr
 

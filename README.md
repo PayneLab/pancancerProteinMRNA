@@ -6,8 +6,9 @@ As a diverse family of diseases, cancer is unified by a set of common dysfunctio
 
 - [Requirements](#requirements)
 - [Δ_corr](#Δ_corr)
+- [Transmutation Effects](#Transmutation-Effects)
 - [Figures](#figures)
-
+- [pcprutils](#pcprutils)
 
 ## Requirements
 
