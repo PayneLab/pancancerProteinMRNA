@@ -39,4 +39,6 @@ All the scripts that produce the images can be found [here](./notebook_steps). <
 ## pcprutils
 Collection of useful functions to load cancers, fetch proteomic and transcriptomic data, and calculate correlations and permutation scores.<br>
 
-
+## Legacy Version Notice
+The code in this repo uses an older version of CPTAC. This may cause dependency issues or warnings with some packages. It is recomended to install in a clean environment.
+If you want to run everything from scratch, CPTAC will request from you Box authorization. Please contact us if you need authorization. 

@@ -1,7 +1,8 @@
 cptac==1.1.2
 seaborn
-numpy
-pandas
+numpy==1.22.4
+pandas==1.4.4
+gtfparse==1.2.1
 statsmodels
 scipy
 pyzt

@@ -8,6 +8,7 @@ import cptac.pancan as pc
 
 
 def load_cancers():
+    pc.download("all", "latest")
     ccrcc = pc.PancanCcrcc()
     en = pc.PancanUcec()
     luad = pc.PancanLuad()
