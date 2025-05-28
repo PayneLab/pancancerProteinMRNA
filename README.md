@@ -31,10 +31,10 @@ The scripts were run in BYU's supercomputer. To run this localy: <br>
 Run download_pancan.py and pass as argument a token for downloading non published datasets.<br> 
 Use the command in the cancer bash files. Again, note that the it may take some time to finish running.
 
-## Figures
+## Figures/Table
 
-All figures are produced by the scripts found [here](./notebook_step/Figures). <br>
-All the scripts that produce the images can be found [here](./notebook_steps). <br>
+Figures and table produced by the scripts can be found [here](./notebook_step/Figures). <br>
+All the scripts that produce the images and table can be found [here](./notebook_steps). <br>
 
 ## pcprutils
 Collection of useful functions to load cancers, fetch proteomic and transcriptomic data, and calculate correlations and permutation scores.<br>
